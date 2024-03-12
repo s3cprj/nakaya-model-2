@@ -35,9 +35,9 @@ while True:
     
     # 予測結果に基づいて何かを行う
     if class_index == 0:
-        print("Class 'open' detected")
+        print("Open")
     else:
-        print("Class 'close' detected")
+        print("Close")
     
     # リアルタイム映像を表示
     cv2.imshow('frame', frame)
