@@ -1,5 +1,6 @@
 open/
 close/
+datasets/
 logdir/train/
 logdir/validation/
 dataset.npy
