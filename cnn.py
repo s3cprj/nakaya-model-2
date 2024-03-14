@@ -16,18 +16,25 @@ import matplotlib.pyplot as plt
 import os
 from keras.callbacks import TensorBoard,ModelCheckpoint
 
+import pickle
+
 
 
 # ハイパーパラメーターの設定
 hp1 = {}
 hp1['class_num'] = 2 # 分類するクラスの数(open or close)
-hp1['batch_size'] = 8 # バッチサイズ(一度に処理する画像の数)
-hp1['epoch'] = 10 # エポック数(訓練の繰り返し回数)
+hp1['batch_size'] = 32 # バッチサイズ(一度に処理する画像の数)
+hp1['epoch'] = 5 # エポック数(訓練の繰り返し回数)
 
+# .pklファイルのパス
+file_path = './dataset.pkl'
 
+# .pklファイルを読み込む
+with open(file_path, 'rb') as file:
+    data = pickle.load(file)
 
 # データセットの読み込み
-X_train, X_test, y_train, y_test = np.load("./dataset.npy", allow_pickle=True)
+X_train, X_test, y_train, y_test = data
 
 
 # 入力データの形状を設定
@@ -37,20 +44,34 @@ input_shape=X_train.shape[1:]
 def CNN(input_shape):
         model = Sequential()
 
+        # 入力層に対して32フィルタの畳み込み層を追加
         model.add(Conv2D(32, (3, 3), padding='same',input_shape=input_shape))
+        # 活性化関数であるReLU関数を使用
         model.add(Activation('relu'))
+        # 32フィルタの畳み込み層を追加
         model.add(Conv2D(32, (3, 3)))
+        # バッチ正規化
         model.add(BatchNormalization())
+        # 活性化関数
         model.add(Activation('relu'))
+        # プーリング層を追加
         model.add(MaxPooling2D(pool_size=(2, 2)))
+        # ドロップアウトで過学習を防止
         model.add(Dropout(0.25))
 
+        # 64フィルタの畳み込み層を追加
         model.add(Conv2D(64, (3, 3), padding='same'))
+        # 活性化関数
         model.add(Activation('relu'))
+        # 64フィルタの畳み込み層を追加
         model.add(Conv2D(64, (3, 3)))
+        # バッチ正規化
         model.add(BatchNormalization())
+        # 活性化関数
         model.add(Activation('relu'))
+        # プーリング層を追加
         model.add(MaxPooling2D(pool_size=(2, 2)))
+        # ドロップアウトで過学習を防止
         model.add(Dropout(0.25))
 
         model.add(Conv2D(128, (3, 3), padding='same'))
