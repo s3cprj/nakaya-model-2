@@ -3,3 +3,4 @@ close/
 logdir/train/
 logdir/validation/
 dataset.npy
+dataset.pkl
