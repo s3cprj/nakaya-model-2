@@ -37,7 +37,6 @@ def detect_and_crop_eyes_from_directory(image_directory, output_folder):
                     eye_img_path = os.path.join(output_folder, f"{filename}_eye_{ex}_{ey}.jpg")
                     cv2.imwrite(eye_img_path, eye_img)
 
-# 使用例
 image_directory = 'datasets/close'  # 画像ファイルがあるディレクトリへのパス
 output_folder = 'datasets/close_eyes'  # 出力フォルダへのパス
 
