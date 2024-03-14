@@ -1,3 +1,4 @@
+import pickle
 from PIL import Image
 import os, glob
 import numpy as np
@@ -61,4 +62,10 @@ y_test = np_utils.to_categorical(y_test, num_classes)
 
 # 前処理済みのデータセットをファイルに保存
 xy = (X_train, X_test, y_train, y_test)
-np.save("./dataset.npy", xy)
+
+#np.save("./dataset.npy", xy)
+
+# pickleを使用してデータセットをファイルに保存するコード
+with open('./dataset.pkl', 'wb') as f:
+    # pickleプロトコルバージョン4を指定
+    pickle.dump(xy, f, protocol=4)
